@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -25,9 +26,18 @@ namespace AP2
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            try {
 
-            // Test de connexion
-            MessageBox.Show("Connexion initialisée avec succès !");
+               
+                
+                // Test de connexion
+                MessageBox.Show("Connexion initialisée avec succès !");
+
+            }
+            catch(Exception ex) {
+                MessageBox.Show("Une erreur est survenue : "+ ex);
+            }
+            
         }
     }
 }

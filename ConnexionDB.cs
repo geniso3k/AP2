@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Windows.Forms;
 
 namespace AP2
 {
@@ -23,48 +25,62 @@ namespace AP2
         }
 
         // Méthode pour exécuter une requête SELECT et retourner un DataTable
-        public DataTable ExecuteSelectQuery(string query, SqlParameter[] parameters = null)
+
+        public DataTable ExecuteSelect(string query, SqlParameter[] parametres = null)
         {
-            DataTable dataTable = new DataTable();
+            DataTable resultat = new DataTable();
 
-            using (SqlConnection connection = GetConnection())
+            using (SqlConnection connexion = this.GetConnection())
             {
-                using (SqlCommand command = new SqlCommand(query, connection))
-                {
-                    // Ajouter les paramètres s'il y en a
-                    if (parameters != null)
-                    {
-                        command.Parameters.AddRange(parameters);
-                    }
 
-                    // Ouvrir la connexion et exécuter la requête
+                using (SqlCommand commande = new SqlCommand(query, connexion))
+                {
                     try
                     {
-                        connection.Open();
-                        SqlDataAdapter adapter = new SqlDataAdapter(command);
-                        adapter.Fill(dataTable);
-                    }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine("Erreur lors de l'exécution de la requête SELECT : " + ex.Message);
-                    }
-                }
-            }
+                        // Ajout des paramètres de façon sécurisée
+                        if (parametres != null)
+                        {
+                            
+                              commande.Parameters.AddRange(parametres);
+                            
+                        }
 
-            return dataTable;
+                        connexion.Open();
+
+                        using (SqlDataReader lecteur = commande.ExecuteReader())
+                        {
+                            resultat.Load(lecteur);
+                        }
+
+                    }
+                    catch (Exception ex) {
+                        MessageBox.Show("Erreur : " + ex.Message, "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+
+
+                }
+
+            }
+            return resultat;
+
         }
 
+
+
+
+
+
         // Méthode pour exécuter une requête INSERT, UPDATE, DELETE
-        public bool ExecuteNonQuery(string query, SqlParameter[] parameters = null)
+        public bool ExecuterCommande(string query, SqlParameter[] parametre = null)
         {
             using (SqlConnection connection = GetConnection())
             {
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
                     // Ajouter les paramètres s'il y en a
-                    if (parameters != null)
+                    if (parametre != null)
                     {
-                        command.Parameters.AddRange(parameters);
+                        command.Parameters.AddRange(parametre);
                     }
 
                     // Ouvrir la connexion et exécuter la requête
@@ -76,7 +92,7 @@ namespace AP2
                     }
                     catch (Exception ex)
                     {
-                        Console.WriteLine("Erreur lors de l'exécution de la requête : " + ex.Message);
+                        MessageBox.Show("Erreur lors de l'exécution de la requête : " + ex.Message, "Erreur",MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return false;
                     }
                 }
@@ -84,16 +100,16 @@ namespace AP2
         }
 
         // Méthode pour exécuter une requête scalar (retourne une seule valeur)
-        public object ExecuteScalar(string query, SqlParameter[] parameters = null)
+        public object ExecuteScalar(string query, SqlParameter[] parametre = null)
         {
             using (SqlConnection connection = GetConnection())
             {
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
                     // Ajouter les paramètres s'il y en a
-                    if (parameters != null)
+                    if (parametre != null)
                     {
-                        command.Parameters.AddRange(parameters);
+                        command.Parameters.AddRange(parametre);
                     }
 
                     // Ouvrir la connexion et exécuter la requête
