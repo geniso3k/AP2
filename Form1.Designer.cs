@@ -29,29 +29,37 @@
         private void InitializeComponent()
         {
             this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.param_tab = new System.Windows.Forms.TabPage();
+            this.stocks_tab = new System.Windows.Forms.TabPage();
+            this.cb_lib = new System.Windows.Forms.ComboBox();
+            this.cb_Dep = new System.Windows.Forms.ComboBox();
+            this.cb_Fab = new System.Windows.Forms.ComboBox();
+            this.cb_cat = new System.Windows.Forms.ComboBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.param_btnEdit = new System.Windows.Forms.Button();
+            this.param_btnSupprimer = new System.Windows.Forms.Button();
+            this.param_btnAjt = new System.Windows.Forms.Button();
+            this.stockDgv = new System.Windows.Forms.DataGridView();
             this.donnee_tab = new System.Windows.Forms.TabPage();
-            this.stock_tab = new System.Windows.Forms.TabPage();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.tabControl2 = new System.Windows.Forms.TabControl();
             this.donnee_article_tab = new System.Windows.Forms.TabPage();
             this.donnee_fabricants_tab = new System.Windows.Forms.TabPage();
             this.donnee_depot_tab = new System.Windows.Forms.TabPage();
-            this.param_btnAjt = new System.Windows.Forms.Button();
-            this.param_btnSupprimer = new System.Windows.Forms.Button();
-            this.param_btnEdit = new System.Windows.Forms.Button();
+            this.param_tab = new System.Windows.Forms.TabPage();
             this.tabControl1.SuspendLayout();
-            this.param_tab.SuspendLayout();
+            this.stocks_tab.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.stockDgv)).BeginInit();
             this.donnee_tab.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.tabControl2.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
             // 
-            this.tabControl1.Controls.Add(this.param_tab);
+            this.tabControl1.Controls.Add(this.stocks_tab);
             this.tabControl1.Controls.Add(this.donnee_tab);
-            this.tabControl1.Controls.Add(this.stock_tab);
+            this.tabControl1.Controls.Add(this.param_tab);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
@@ -60,19 +68,138 @@
             this.tabControl1.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
             this.tabControl1.TabIndex = 0;
             // 
-            // param_tab
+            // stocks_tab
             // 
-            this.param_tab.Controls.Add(this.param_btnEdit);
-            this.param_tab.Controls.Add(this.param_btnSupprimer);
-            this.param_tab.Controls.Add(this.param_btnAjt);
-            this.param_tab.Controls.Add(this.dataGridView1);
-            this.param_tab.Location = new System.Drawing.Point(4, 22);
-            this.param_tab.Name = "param_tab";
-            this.param_tab.Padding = new System.Windows.Forms.Padding(3);
-            this.param_tab.Size = new System.Drawing.Size(792, 424);
-            this.param_tab.TabIndex = 0;
-            this.param_tab.Text = "Paramètres";
-            this.param_tab.UseVisualStyleBackColor = true;
+            this.stocks_tab.Controls.Add(this.cb_lib);
+            this.stocks_tab.Controls.Add(this.cb_Dep);
+            this.stocks_tab.Controls.Add(this.cb_Fab);
+            this.stocks_tab.Controls.Add(this.cb_cat);
+            this.stocks_tab.Controls.Add(this.label4);
+            this.stocks_tab.Controls.Add(this.label3);
+            this.stocks_tab.Controls.Add(this.label2);
+            this.stocks_tab.Controls.Add(this.label1);
+            this.stocks_tab.Controls.Add(this.param_btnEdit);
+            this.stocks_tab.Controls.Add(this.param_btnSupprimer);
+            this.stocks_tab.Controls.Add(this.param_btnAjt);
+            this.stocks_tab.Controls.Add(this.stockDgv);
+            this.stocks_tab.Location = new System.Drawing.Point(4, 22);
+            this.stocks_tab.Name = "stocks_tab";
+            this.stocks_tab.Padding = new System.Windows.Forms.Padding(3);
+            this.stocks_tab.Size = new System.Drawing.Size(792, 424);
+            this.stocks_tab.TabIndex = 0;
+            this.stocks_tab.Text = "Stocks";
+            this.stocks_tab.UseVisualStyleBackColor = true;
+            // 
+            // cb_lib
+            // 
+            this.cb_lib.FormattingEnabled = true;
+            this.cb_lib.Location = new System.Drawing.Point(143, 107);
+            this.cb_lib.Name = "cb_lib";
+            this.cb_lib.Size = new System.Drawing.Size(121, 21);
+            this.cb_lib.TabIndex = 11;
+            this.cb_lib.SelectionChangeCommitted += new System.EventHandler(this.cb_lib_SelectionChangeCommitted);
+            // 
+            // cb_Dep
+            // 
+            this.cb_Dep.FormattingEnabled = true;
+            this.cb_Dep.Location = new System.Drawing.Point(143, 74);
+            this.cb_Dep.Name = "cb_Dep";
+            this.cb_Dep.Size = new System.Drawing.Size(121, 21);
+            this.cb_Dep.TabIndex = 10;
+            this.cb_Dep.SelectionChangeCommitted += new System.EventHandler(this.cb_Dep_SelectionChangeCommitted);
+            // 
+            // cb_Fab
+            // 
+            this.cb_Fab.FormattingEnabled = true;
+            this.cb_Fab.Location = new System.Drawing.Point(143, 43);
+            this.cb_Fab.Name = "cb_Fab";
+            this.cb_Fab.Size = new System.Drawing.Size(121, 21);
+            this.cb_Fab.TabIndex = 9;
+            this.cb_Fab.SelectionChangeCommitted += new System.EventHandler(this.cb_Fab_SelectionChangeCommitted);
+            // 
+            // cb_cat
+            // 
+            this.cb_cat.FormattingEnabled = true;
+            this.cb_cat.Location = new System.Drawing.Point(143, 11);
+            this.cb_cat.Name = "cb_cat";
+            this.cb_cat.Size = new System.Drawing.Size(121, 21);
+            this.cb_cat.TabIndex = 8;
+            this.cb_cat.SelectionChangeCommitted += new System.EventHandler(this.cb_cat_SelectionChangeCommitted);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(6, 110);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(110, 13);
+            this.label4.TabIndex = 7;
+            this.label4.Text = "Recherche par libellé:";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(6, 77);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(111, 13);
+            this.label3.TabIndex = 6;
+            this.label3.Text = "Recherche par dépôt:";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(6, 46);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(125, 13);
+            this.label2.TabIndex = 5;
+            this.label2.Text = "Recherche par fabricant:";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(6, 14);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(128, 13);
+            this.label1.TabIndex = 4;
+            this.label1.Text = "Recherche par catégorie:";
+            // 
+            // param_btnEdit
+            // 
+            this.param_btnEdit.Location = new System.Drawing.Point(344, 166);
+            this.param_btnEdit.Name = "param_btnEdit";
+            this.param_btnEdit.Size = new System.Drawing.Size(75, 23);
+            this.param_btnEdit.TabIndex = 3;
+            this.param_btnEdit.Text = "Modifier";
+            this.param_btnEdit.UseVisualStyleBackColor = true;
+            // 
+            // param_btnSupprimer
+            // 
+            this.param_btnSupprimer.Location = new System.Drawing.Point(709, 166);
+            this.param_btnSupprimer.Name = "param_btnSupprimer";
+            this.param_btnSupprimer.Size = new System.Drawing.Size(75, 23);
+            this.param_btnSupprimer.TabIndex = 2;
+            this.param_btnSupprimer.Text = "Supprimer";
+            this.param_btnSupprimer.UseVisualStyleBackColor = true;
+            // 
+            // param_btnAjt
+            // 
+            this.param_btnAjt.Location = new System.Drawing.Point(6, 166);
+            this.param_btnAjt.Name = "param_btnAjt";
+            this.param_btnAjt.Size = new System.Drawing.Size(75, 23);
+            this.param_btnAjt.TabIndex = 1;
+            this.param_btnAjt.Text = "Ajouter";
+            this.param_btnAjt.UseVisualStyleBackColor = true;
+            // 
+            // stockDgv
+            // 
+            this.stockDgv.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.stockDgv.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            this.stockDgv.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.stockDgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.stockDgv.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.stockDgv.Location = new System.Drawing.Point(3, 195);
+            this.stockDgv.Name = "stockDgv";
+            this.stockDgv.Size = new System.Drawing.Size(786, 226);
+            this.stockDgv.TabIndex = 0;
             // 
             // donnee_tab
             // 
@@ -84,24 +211,6 @@
             this.donnee_tab.TabIndex = 1;
             this.donnee_tab.Text = "Données";
             this.donnee_tab.UseVisualStyleBackColor = true;
-            // 
-            // stock_tab
-            // 
-            this.stock_tab.Location = new System.Drawing.Point(4, 22);
-            this.stock_tab.Name = "stock_tab";
-            this.stock_tab.Padding = new System.Windows.Forms.Padding(3);
-            this.stock_tab.Size = new System.Drawing.Size(792, 424);
-            this.stock_tab.TabIndex = 2;
-            this.stock_tab.Text = "Stocks";
-            this.stock_tab.UseVisualStyleBackColor = true;
-            // 
-            // dataGridView1
-            // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(8, 6);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(778, 376);
-            this.dataGridView1.TabIndex = 0;
             // 
             // tabControl2
             // 
@@ -145,32 +254,15 @@
             this.donnee_depot_tab.Text = "Dépôts";
             this.donnee_depot_tab.UseVisualStyleBackColor = true;
             // 
-            // param_btnAjt
+            // param_tab
             // 
-            this.param_btnAjt.Location = new System.Drawing.Point(9, 393);
-            this.param_btnAjt.Name = "param_btnAjt";
-            this.param_btnAjt.Size = new System.Drawing.Size(75, 23);
-            this.param_btnAjt.TabIndex = 1;
-            this.param_btnAjt.Text = "Ajouter";
-            this.param_btnAjt.UseVisualStyleBackColor = true;
-            // 
-            // param_btnSupprimer
-            // 
-            this.param_btnSupprimer.Location = new System.Drawing.Point(709, 393);
-            this.param_btnSupprimer.Name = "param_btnSupprimer";
-            this.param_btnSupprimer.Size = new System.Drawing.Size(75, 23);
-            this.param_btnSupprimer.TabIndex = 2;
-            this.param_btnSupprimer.Text = "Supprimer";
-            this.param_btnSupprimer.UseVisualStyleBackColor = true;
-            // 
-            // param_btnEdit
-            // 
-            this.param_btnEdit.Location = new System.Drawing.Point(359, 393);
-            this.param_btnEdit.Name = "param_btnEdit";
-            this.param_btnEdit.Size = new System.Drawing.Size(75, 23);
-            this.param_btnEdit.TabIndex = 3;
-            this.param_btnEdit.Text = "Modifier";
-            this.param_btnEdit.UseVisualStyleBackColor = true;
+            this.param_tab.Location = new System.Drawing.Point(4, 22);
+            this.param_tab.Name = "param_tab";
+            this.param_tab.Padding = new System.Windows.Forms.Padding(3);
+            this.param_tab.Size = new System.Drawing.Size(792, 424);
+            this.param_tab.TabIndex = 2;
+            this.param_tab.Text = "Paramètres";
+            this.param_tab.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
@@ -183,9 +275,10 @@
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.tabControl1.ResumeLayout(false);
-            this.param_tab.ResumeLayout(false);
+            this.stocks_tab.ResumeLayout(false);
+            this.stocks_tab.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.stockDgv)).EndInit();
             this.donnee_tab.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.tabControl2.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -194,10 +287,10 @@
         #endregion
 
         private System.Windows.Forms.TabControl tabControl1;
-        private System.Windows.Forms.TabPage param_tab;
+        private System.Windows.Forms.TabPage stocks_tab;
         private System.Windows.Forms.TabPage donnee_tab;
-        private System.Windows.Forms.TabPage stock_tab;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.TabPage param_tab;
+        private System.Windows.Forms.DataGridView stockDgv;
         private System.Windows.Forms.TabControl tabControl2;
         private System.Windows.Forms.TabPage donnee_article_tab;
         private System.Windows.Forms.TabPage donnee_fabricants_tab;
@@ -205,6 +298,14 @@
         private System.Windows.Forms.Button param_btnEdit;
         private System.Windows.Forms.Button param_btnSupprimer;
         private System.Windows.Forms.Button param_btnAjt;
+        private System.Windows.Forms.ComboBox cb_lib;
+        private System.Windows.Forms.ComboBox cb_Dep;
+        private System.Windows.Forms.ComboBox cb_Fab;
+        private System.Windows.Forms.ComboBox cb_cat;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label1;
     }
 }
 

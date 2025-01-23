@@ -11,6 +11,7 @@ namespace AP2
         [STAThread]
         static void Main()
         {
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
@@ -50,6 +51,11 @@ namespace AP2
             loginForm.Controls.Add(txtPass);
             loginForm.Controls.Add(btnOk);
             loginForm.AcceptButton = btnOk;
+
+
+            /* Créer un utilisateur
+            Authentifications newUser = new Authentifications("genis", "password");
+            newUser.register(); */
 
             if (loginForm.ShowDialog() == DialogResult.OK)
             {
