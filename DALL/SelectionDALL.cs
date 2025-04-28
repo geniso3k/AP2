@@ -91,7 +91,9 @@ namespace AP2.DALL
         public DataTable afficherStockDate(DateTime date)
         {
 
-            string query = "SELECT refArticle, numDepot, stockAlaDate, dateDernierInventaire FROM fn_StockAlaDate(@date)";
+            string query = "" +
+                "SELECT alibelle as Libelle, dnom as Dépôt, stockAlaDate, dateDernierInventaire " +
+                "FROM fn_StockAlaDate(@date)";
             SqlParameter[] checkParam = new SqlParameter[]
                     {
                         new SqlParameter("@date", SqlDbType.DateTime) { Value = date}

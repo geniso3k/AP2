@@ -173,9 +173,14 @@ namespace AP2
             dgvStock.DataSource = dt;
         }
 
-        private void dgvStock_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void dgvStock_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            MessageBox.Show("Test");
+            if (e.RowIndex != -1)
+            {
+
+                string cellValue = dgvStock.Rows[e.RowIndex].Cells[0].Value.ToString();
+                MessageBox.Show(cellValue.ToString());
+            }
         }
     }
 }

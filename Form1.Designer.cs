@@ -130,14 +130,21 @@
             // 
             // dgvStock
             // 
+            this.dgvStock.AllowUserToAddRows = false;
+            this.dgvStock.AllowUserToDeleteRows = false;
+            this.dgvStock.AllowUserToOrderColumns = true;
             this.dgvStock.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvStock.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvStock.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.dgvStock.Location = new System.Drawing.Point(3, 132);
             this.dgvStock.Name = "dgvStock";
+            this.dgvStock.ReadOnly = true;
+            this.dgvStock.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
+            this.dgvStock.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvStock.Size = new System.Drawing.Size(592, 257);
+            this.dgvStock.StandardTab = true;
             this.dgvStock.TabIndex = 1;
-            this.dgvStock.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvStock_CellContentClick);
+            this.dgvStock.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvStock_CellDoubleClick);
             // 
             // btnAfficherStock
             // 
