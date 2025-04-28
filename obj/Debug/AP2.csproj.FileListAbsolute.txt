@@ -19,3 +19,4 @@ F:\2eme année\Mr Rinaldi\AP2\AP2\AP2\obj\Debug\AP2.csproj.CoreCompileInputs.cac
 F:\2eme année\Mr Rinaldi\AP2\AP2\AP2\obj\Debug\AP2.csproj.Up2Date
 F:\2eme année\Mr Rinaldi\AP2\AP2\AP2\obj\Debug\AP2.exe
 F:\2eme année\Mr Rinaldi\AP2\AP2\AP2\obj\Debug\AP2.pdb
+F:\2eme année\Mr Rinaldi\AP2\AP2\AP2\obj\Debug\AP2.FormAjouterArticle.resources
