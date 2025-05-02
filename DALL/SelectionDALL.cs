@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Runtime.Remoting.Messaging;
 using System.Security.Cryptography;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
@@ -102,6 +103,97 @@ namespace AP2.DALL
 
         }
 
+        public bool ajouterMvt(string refA, DateTime date, int qte, string numDepot)
+        {
+            string query = "INSERT INTO mouvstock(refArticle, dateHr, type, qte,numDepot) VALUES (@ref, @dat, 'MVT', @qte, @numD)";
+            SqlParameter[] checkParam = new SqlParameter[]
+            {
+                new SqlParameter("@ref", refA),
+                new SqlParameter("@dat", date),
+                new SqlParameter("@qte", qte),
+                new SqlParameter("@numD", numDepot)
+
+            };
+
+            return ExecuterCommande(query, checkParam) ? true: false;
+            
+        }
+
+        public DataTable search( string choix, string param = null)
+        {
+            string query = "SELECT * FROM ";
+            string lib;
+            if(choix == "fab")
+            {
+                query += "fabricants";
+                lib = "nomEnt";
+            }
+            else
+            {
+                query += "dépôt";
+                lib = "ville";
+            }
+
+            
+            if (param != null)
+            {
+                query += " WHERE "+lib+" LIKE @libelle;";
+                
+
+                SqlParameter[] checkParam = new SqlParameter[]
+                        {
+                        new SqlParameter("@libelle",  "%"+param+"%")
+                        };
+                return ExecuteSelect(query, checkParam);
+            }
+            else
+            {
+
+                return ExecuteSelect(query);
+            }
+
+
+        }
+
+
+
+        public bool ModifierDGV(DataGridView dgv, int rowIndex, int colIndex, string nomTable)
+        {
+            try
+            {
+                if (rowIndex < 0 || colIndex < 0 || dgv == null || dgv.Rows.Count <= rowIndex)
+                    return false;
+
+                var newValue = dgv.Rows[rowIndex].Cells[colIndex].Value?.ToString();
+                if (string.IsNullOrWhiteSpace(newValue))
+                    return false;
+
+                string columnName = dgv.Columns[colIndex].Name;
+
+                // ID dans la première colonne
+                var idValue = dgv.Rows[rowIndex].Cells[0].Value;
+                if (idValue == null)
+                    return false;
+
+
+
+
+                string query = $"UPDATE {nomTable} SET {columnName} = @val WHERE {dgv.Columns[0].Name} = @id";
+
+                SqlParameter[] checkParam = new SqlParameter[]
+                            {
+                        new SqlParameter("@val",  newValue),
+                        new SqlParameter("@id",  idValue)
+                            };
+
+                return ExecuterCommande(query, checkParam) ? true : false;
+            }catch(Exception ex)
+            {
+                MessageBox.Show("Erreur : " + ex.Message);
+                return false;
+            }
+
+        }
 
 
     }

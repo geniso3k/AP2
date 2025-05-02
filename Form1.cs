@@ -23,6 +23,8 @@ namespace AP2
             InitializeComponent();
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
             db = new ConnexionDB(); // Initialisation de l'objet ConnexionDB
+            
+
 
         }
 
@@ -31,6 +33,7 @@ namespace AP2
             try {
 
                 LoadStockData();
+
 
             }
             catch(Exception ex) {
@@ -42,6 +45,12 @@ namespace AP2
         {
             try
             {
+                dgv_AllFab.CellValueChanged += dgv_AllFab_CellValueChanged;
+                dgv_AllFab.CellEndEdit += dgv_AllFab_CellEndEdit;
+
+                dgv_allDep.CellValueChanged += dgv_allDep_CellValueChanged;
+                dgv_allDep.CellEndEdit += dgv_allDep_CellEndEdit;
+
                 // Charger les catégories
                 string queryCategorie = "SELECT codeCat AS id, libelle FROM [catégorie_d_articles]";
                 DataTable resultCategories = db.ExecuteSelect(queryCategorie);
@@ -74,6 +83,13 @@ namespace AP2
                 cb_Dep.DataSource = resultDepots;
                 cb_Dep.DisplayMember = "nom";
                 cb_Dep.ValueMember = "id";
+
+
+                SelectionDALL selectionDALL = new SelectionDALL();
+                DataTable dt = selectionDALL.search("dep");
+                dgv_allDep.DataSource = dt;
+                DataTable dt2 = selectionDALL.search("fab");
+                dgv_AllFab.DataSource = dt2;
 
                 // Charger les articles au démarrage
                 LoadArticles();
@@ -171,16 +187,84 @@ namespace AP2
             SelectionDALL sd = new SelectionDALL();
             DataTable dt = sd.afficherStockDate(dateCible);
             dgvStock.DataSource = dt;
+
+
         }
 
-        private void dgvStock_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        private void btnMvt_Click(object sender, EventArgs e)
         {
-            if (e.RowIndex != -1)
-            {
+            Form formAjouterMvt = new FormAjouterMvt();
+            formAjouterMvt.Show();
 
-                string cellValue = dgvStock.Rows[e.RowIndex].Cells[0].Value.ToString();
-                MessageBox.Show(cellValue.ToString());
-            }
         }
+
+        private void txt_searchFab_TextChanged(object sender, EventArgs e)
+        {
+
+            SelectionDALL selectionDALL = new SelectionDALL();
+            DataTable dt = selectionDALL.search("fab", txt_searchFab.Text);
+            dgv_AllFab.DataSource = dt;
+
+        }
+
+        private void btn_AjtDep_Click(object sender, EventArgs e)
+        {
+            SelectionDALL selectionDALL = new SelectionDALL();
+            DataTable dt = selectionDALL.search("dep", txt_searchDep.Text);
+            dgv_allDep.DataSource = dt;
+        }
+        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int index = tabControl1.SelectedIndex;
+            MessageBox.Show(index.ToString());
+        }
+
+
+        private void dgv_AllFab_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            dgv_AllFab.CommitEdit(DataGridViewDataErrorContexts.Commit);
+        }
+        private void dgv_AllFab_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+
+            SelectionDALL sd = new SelectionDALL();
+            if(sd.ModifierDGV((DataGridView)sender, e.RowIndex, e.ColumnIndex, "Fabricants"))
+            {
+                MessageBox.Show("Modification effectuée !");
+            }
+            else
+            {
+                MessageBox.Show("Aucune modification effectuée !");
+            }
+
+        }
+
+
+        private void dgv_allDep_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            dgv_allDep.CommitEdit(DataGridViewDataErrorContexts.Commit);
+        }
+        private void dgv_allDep_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+
+            SelectionDALL sd = new SelectionDALL();
+            if (sd.ModifierDGV((DataGridView)sender, e.RowIndex, e.ColumnIndex, "Dépôt"))
+            {
+                MessageBox.Show("Modification effectuée !");
+            }
+            else
+            {
+                MessageBox.Show("Aucune modification effectuée !");
+            }
+
+        }
+
+
+
+
+
+
+
+
     }
 }
