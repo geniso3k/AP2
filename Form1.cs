@@ -18,11 +18,13 @@ namespace AP2
     {
 
         private ConnexionDB db; // Instance de la classe ConnexionDB
+        private DataGridView dgvCible = null;
         public Form1()
         {
             InitializeComponent();
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
             db = new ConnexionDB(); // Initialisation de l'objet ConnexionDB
+
             
 
 
@@ -41,7 +43,8 @@ namespace AP2
             }
             
         }
-        private void LoadStockData()
+
+        public void LoadStockData()
         {
             try
             {
@@ -50,6 +53,21 @@ namespace AP2
 
                 dgv_allDep.CellValueChanged += dgv_allDep_CellValueChanged;
                 dgv_allDep.CellEndEdit += dgv_allDep_CellEndEdit;
+
+                //  attachement des handlers pour 2 DGV
+
+                supprimerToolStripMenuItem.Click += supprimerToolStripMenuItem_Click;
+
+                dgv_allDep.MouseDown += dataGridView_MouseDown;
+                dgv_AllFab.MouseDown += dataGridView_MouseDown;
+                stockDgv.MouseDown += dataGridView_MouseDown;
+
+                btnAfficherStock_Click(null,null);
+
+
+
+
+
 
                 // Charger les catégories
                 string queryCategorie = "SELECT codeCat AS id, libelle FROM [catégorie_d_articles]";
@@ -100,7 +118,36 @@ namespace AP2
             }
         }
 
-
+        private void dataGridView_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                var dgv = sender as DataGridView;
+                var hit = dgv.HitTest(e.X, e.Y);
+                if (hit.RowIndex >= 0)
+                {
+                    dgv.ClearSelection();
+                    dgv.Rows[hit.RowIndex].Selected = true;
+                    dgv.CurrentCell = dgv.Rows[hit.RowIndex].Cells[0];
+                    dgvCible = dgv; // mémorise la grille ciblée
+                }
+            }
+        }
+        private void supprimerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (dgvCible != null && dgvCible.SelectedRows.Count > 0)
+            {
+                SelectionDALL selectionDALL = new SelectionDALL();
+                string rowIndex = dgvCible.SelectedRows[0].Cells[0].Value.ToString();
+                string subst = rowIndex.Substring(0, 3); // avoir uniquement le mot FAB ou DEP
+                if (selectionDALL.deleteFabOuDep(rowIndex, subst))
+                {
+                    MessageBox.Show("Action réalisée avec succès");
+                    this.LoadStockData();
+                }
+                
+            }
+        }
 
         private void LoadArticles()
         {
@@ -157,7 +204,7 @@ namespace AP2
 
         private void param_btnAjt_Click(object sender, EventArgs e)
         {
-            Form formAjouterArticle = new FormAjouterArticle();
+            Form formAjouterArticle = new FormAjouterArticle(this);
             formAjouterArticle.Show();
         }
 
@@ -206,13 +253,27 @@ namespace AP2
             dgv_AllFab.DataSource = dt;
 
         }
-
-        private void btn_AjtDep_Click(object sender, EventArgs e)
+        private void txt_searchDep_TextChanged(object sender, EventArgs e)
         {
+
             SelectionDALL selectionDALL = new SelectionDALL();
             DataTable dt = selectionDALL.search("dep", txt_searchDep.Text);
             dgv_allDep.DataSource = dt;
+
         }
+
+        private void btn_AjtDep_Click(object sender, EventArgs e)
+        {
+            Form nf = new FormAjouterDepot(this);
+            nf.Show();
+        }
+
+        private void btn_AjtFab_Click(object sender, EventArgs e)
+        {
+            Form nf = new FormAjouterFab(this);
+            nf.Show();
+        }
+
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
             int index = tabControl1.SelectedIndex;
@@ -259,11 +320,25 @@ namespace AP2
 
         }
 
+        private void stockDgv_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
 
+            if(e.RowIndex >= 0)
+            {
+                DataGridViewRow dgv = stockDgv.Rows[e.RowIndex];
 
+                string id = dgv.Cells["Référence"].Value.ToString();
+                string lib = dgv.Cells["Libellé"].Value.ToString();
+                string cat = dgv.Cells["Catégorie"].Value.ToString(); 
+                string fab = dgv.Cells["Fabricant"].Value.ToString();
+                string uni = dgv.Cells["Unité"].Value.ToString(); 
+                string dep = dgv.Cells["Dépôt"].Value.ToString();
 
+                FormModifierArticle modifier = new FormModifierArticle(this, id, lib, cat, fab, uni, dep);
+                modifier.Show();
+            }
 
-
+        }
 
 
     }

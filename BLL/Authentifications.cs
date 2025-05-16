@@ -104,7 +104,7 @@ namespace AP2
                     return false;
                 }
                 
-            }catch(Exception e) { return false; }
+            }catch(Exception e) { MessageBox.Show(e.Message); return false; }
         }
     }
 }

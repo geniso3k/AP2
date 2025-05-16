@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="..\packages\EntityFramework.6.5.1\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.5.1\build\EntityFramework.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
@@ -67,6 +67,7 @@
   <ItemGroup>
     <Compile Include="BLL\Authentifications.cs" />
     <Compile Include="DALL\ConnexionDB.cs" />
+    <Compile Include="DALL\InsertionDALL.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -80,11 +81,29 @@
     <Compile Include="FormAjouterArticle.Designer.cs">
       <DependentUpon>FormAjouterArticle.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormAjouterDepot.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormAjouterDepot.Designer.cs">
+      <DependentUpon>FormAjouterDepot.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormAjouterFab.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormAjouterFab.Designer.cs">
+      <DependentUpon>FormAjouterFab.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormAjouterMvt.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FormAjouterMvt.Designer.cs">
       <DependentUpon>FormAjouterMvt.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormModifierArticle.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormModifierArticle.Designer.cs">
+      <DependentUpon>FormModifierArticle.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -94,8 +113,17 @@
     <EmbeddedResource Include="FormAjouterArticle.resx">
       <DependentUpon>FormAjouterArticle.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FormAjouterDepot.resx">
+      <DependentUpon>FormAjouterDepot.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormAjouterFab.resx">
+      <DependentUpon>FormAjouterFab.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormAjouterMvt.resx">
       <DependentUpon>FormAjouterMvt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormModifierArticle.resx">
+      <DependentUpon>FormModifierArticle.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

@@ -65,13 +65,14 @@ namespace AP2.DALL
             return ExecuteSelect(query, parameters.ToArray());
         }
 
-        public  bool ajouterProduit(string categorie, string fab, string dep, string unite, string libelle)
+        public  bool ajouterProduit(string refA, string categorie, string fab, string dep, string unite, string libelle)
         {
             try
             {
-                string query = "INSERT INTO articles (libelle, codeUni,refFab, codeCat, codeDep) VALUES (@libelle, @codeUni, @refFab, @codeCat, @codeDep)";
+                string query = "INSERT INTO articles (refArticles, libelle, codeUni,refFab, codeCat, codeDep) VALUES (@ref,@libelle, @codeUni, @refFab, @codeCat, @codeDep)";
                 SqlParameter[] checkParam = new SqlParameter[]
                     {
+                        new SqlParameter("@ref", refA),
                     new SqlParameter("@libelle", libelle),
                     new SqlParameter("@codeUni", unite),
                     new SqlParameter("@refFab", fab),
@@ -91,13 +92,20 @@ namespace AP2.DALL
 
         public DataTable afficherStockDate(DateTime date)
         {
-
-            string query = "" +
-                "SELECT alibelle as Libelle, dnom as Dépôt, stockAlaDate, dateDernierInventaire " +
-                "FROM fn_StockAlaDate(@date)";
+            string query = "DECLARE @dateDernierINV DATETIME;" +
+                "SELECT @dateDernierINV = (" +
+                "    SELECT TOP 1 dateHr" +
+                "    FROM mouvstock" +
+                "   WHERE dateHr <= @dateCible AND type = 'INV'" +
+                "   ORDER BY dateHr DESC" +
+                ");";
+            query += "SELECT sum(qte) as 'Stock à la date', a.libelle , CONCAT(d.nom, ', ', d.ville) AS 'Dépôt', @dateDernierINV AS 'Date du dernier inventaire'" +
+                "FROM mouvstock\r\n" +
+                "JOIN Articles a ON a.refArticles = mouvstock.refArticle\r\n" +
+                "JOIN dépôt d ON d.idDepot = a.codeDep\r\nWHERE dateHr >= @dateDernierINV\r\nAND dateHr <= @dateCible\r\nGROUP BY a.libelle, d.nom, d.ville";
             SqlParameter[] checkParam = new SqlParameter[]
                     {
-                        new SqlParameter("@date", SqlDbType.DateTime) { Value = date}
+                        new SqlParameter("@dateCible", SqlDbType.DateTime) { Value = date}
                     };
             return ExecuteSelect(query, checkParam);
 
@@ -126,12 +134,12 @@ namespace AP2.DALL
             if(choix == "fab")
             {
                 query += "fabricants";
-                lib = "nomEnt";
+                lib = "CONCAT(nomEnt,marque,refFab)";
             }
             else
             {
                 query += "dépôt";
-                lib = "ville";
+                lib = "CONCAT(ville,nom,pays,idDepot,lattitude,longitude)";
             }
 
             
@@ -170,15 +178,20 @@ namespace AP2.DALL
 
                 string columnName = dgv.Columns[colIndex].Name;
 
+                
+
                 // ID dans la première colonne
                 var idValue = dgv.Rows[rowIndex].Cells[0].Value;
                 if (idValue == null)
                     return false;
+                string column = dgv.Columns[0].Name;
+                
+                
 
 
+                    string query = $"UPDATE {nomTable} SET {columnName} = @val WHERE {column} = @id";
 
-
-                string query = $"UPDATE {nomTable} SET {columnName} = @val WHERE {dgv.Columns[0].Name} = @id";
+               
 
                 SqlParameter[] checkParam = new SqlParameter[]
                             {
@@ -194,6 +207,100 @@ namespace AP2.DALL
             }
 
         }
+
+        public bool delete(string table, string idName, string id)
+        {
+
+            try
+            {
+                string query = "DELETE FROM "+table+" WHERE "+idName+" = @id";
+
+                SqlParameter[] param = new SqlParameter[]
+                {
+
+                    new SqlParameter("@id", id)
+                };
+                return ExecuterCommande(query, param);
+
+            }catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return false;
+            }
+
+        }
+        public bool deleteFabOuDep(string id, string param)
+        {
+            try
+            {
+                string table = null;
+                if(param == "FAB")
+                {
+                     table = "fabricants";
+                    param = "refFab= '" + id + "'";
+
+                }
+                else if(param == "DEP")
+                {
+                     table = "dépôt";
+                    param = "idDepot = '"+id+"'";
+                }
+                else
+                {
+                    table = "Articles";
+                    param = "refArticles = '" + id + "'";
+                }
+
+                string query = "DELETE FROM " + table + " WHERE " + param;
+
+                
+
+                return ExecuterCommande(query);
+            }catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return false;
+            }
+
+        }
+
+        public DataTable Charger(string nomTable)
+        {
+            string query = $"SELECT * FROM {nomTable}";
+            return ExecuteSelect(query);
+        }
+
+        public bool editerArticle(string r, string l, string c, string f, string u, string d)
+        {
+            // Préparer la requête SQL
+            string query = @"
+            UPDATE articles
+            SET 
+                libelle = @libelle,
+                codeCat = @codeCat,
+                refFab = @refFab,
+                codeUni = @codeUni,
+                codeDep = @idDepot
+            WHERE refArticles = @ref";
+
+
+            // Créer un tableau de paramètres
+            SqlParameter[] parameters = new SqlParameter[]
+            {
+            new SqlParameter("@libelle", l),
+            new SqlParameter("@codeCat", c),
+            new SqlParameter("@refFab", f),
+            new SqlParameter("@codeUni", u),
+            new SqlParameter("@idDepot", d),
+            new SqlParameter("@ref", r)
+            };
+
+
+            return ExecuterCommande(query, parameters);
+
+        }
+
+
 
 
     }

@@ -14,8 +14,8 @@ namespace AP2
         // Constructeur pour initialiser la chaîne de connexion
         public ConnexionDB()
         {
-            // Remplace par ta chaîne de connexion
-            connectionString = "Server=SRV-SQL\\SQL_SLAM;Database=BD_STOCK_BYTYQI;Trusted_Connection=True;";
+            //connectionString = "Server=SRV-SQL\\SQL_SLAM;Database=BD_STOCK_BYTYQI;Trusted_Connection=True;";
+            connectionString = "Server=localhost\\SQLEXPRESS;Database=BD_STOCK_BYTYQI;Trusted_Connection=True";
         }
 
         // Méthode pour obtenir une connexion SQL
@@ -90,10 +90,18 @@ namespace AP2
                         int rowsAffected = command.ExecuteNonQuery();
                         return rowsAffected > 0;
                     }
-                    catch (Exception ex)
+                    catch (SqlException ex)
                     {
-                        MessageBox.Show("Erreur lors de l'exécution de la requête : " + ex.Message, "Erreur",MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return false;
+                        if (ex.Number == 547)
+                        {
+                            MessageBox.Show("Impossible, l'article est encore utilisé dans une autre table. (probablement dans les mouvements de stock)");
+
+                        }
+                        else
+                        {
+                            MessageBox.Show("Erreur lors de l'exécution de la requête : " + ex.Message, "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                            return false;
                     }
                 }
             }

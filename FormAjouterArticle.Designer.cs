@@ -40,6 +40,8 @@
             this.label5 = new System.Windows.Forms.Label();
             this.cb_Uni = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.txt_RefArt = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // btn_Ajouter
@@ -142,18 +144,36 @@
             this.label6.BackColor = System.Drawing.Color.Transparent;
             this.label6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.label6.Font = new System.Drawing.Font("MV Boli", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(118, 18);
+            this.label6.Location = new System.Drawing.Point(249, 0);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(126, 18);
             this.label6.TabIndex = 12;
             this.label6.Text = "Ajouter un produit";
             this.label6.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(12, 5);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(123, 13);
+            this.label7.TabIndex = 14;
+            this.label7.Text = "Référence article unique";
+            // 
+            // txt_RefArt
+            // 
+            this.txt_RefArt.Location = new System.Drawing.Point(12, 21);
+            this.txt_RefArt.Name = "txt_RefArt";
+            this.txt_RefArt.Size = new System.Drawing.Size(351, 20);
+            this.txt_RefArt.TabIndex = 15;
+            // 
             // FormAjouterArticle
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(375, 307);
+            this.Controls.Add(this.txt_RefArt);
+            this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.cb_Uni);
             this.Controls.Add(this.label5);
@@ -188,5 +208,7 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.ComboBox cb_Uni;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.TextBox txt_RefArt;
     }
 }

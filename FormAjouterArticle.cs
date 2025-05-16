@@ -14,11 +14,14 @@ namespace AP2
     public partial class FormAjouterArticle : Form
     {
         private ConnexionDB db;
-        public FormAjouterArticle()
+        private Form1 ancien;
+        public FormAjouterArticle(Form1 ancien)
         {
             InitializeComponent();
+            this.ancien = ancien;
             db = new ConnexionDB(); // Initialisation de l'objet ConnexionDB
             LoadStockData();
+
         }
         private void LoadStockData()
         {
@@ -66,6 +69,7 @@ namespace AP2
             if (!string.IsNullOrEmpty(txtLibelle.Text)){
                 bool reussite =
                 selectionDALL.ajouterProduit(
+                    txt_RefArt.Text,
                     Convert.ToString(cb_Cat.SelectedValue),
                     Convert.ToString(cb_Fab.SelectedValue),
                     Convert.ToString(cb_Dep.SelectedValue),
@@ -79,7 +83,9 @@ namespace AP2
                     cb_Fab.SelectedIndex = -1;
                     cb_Dep.SelectedIndex = -1;
                     cb_Uni.SelectedIndex = -1;
+                    this.ancien.LoadStockData();
                     MessageBox.Show("Produit ajouté avec succès");
+
                     this.Close();
                 }
                 
