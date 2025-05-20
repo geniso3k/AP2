@@ -63,5 +63,39 @@ namespace AP2.DALL
 
         }
 
+        //Permet d'ajouter une catégorie OU un article en fonction du parameter
+        public bool ajouterCatouUni(string code, string lib, string parameter)
+        {
+            try
+            {
+                string query = null;
+                if (parameter == "CAT")
+                {
+
+                    query = "INSERT INTO [catégorie_d_articles] (codeCat,libelle) VALUES (@c, @l)";
+
+                }
+                else
+                {
+                    query = "INSERT INTO unité (codeUni,libelle) VALUES (@c, @l)";
+                }
+
+                SqlParameter[] param = new SqlParameter[]
+                {
+                    new SqlParameter("@c", code),
+                    new SqlParameter("@l", lib),
+                };
+
+                return ExecuterCommande(query, param);
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return false;
+            }
+
+        }
+
     }
 }

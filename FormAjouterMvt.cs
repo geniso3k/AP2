@@ -14,8 +14,10 @@ namespace AP2
     public partial class FormAjouterMvt : Form
     {
         private ConnexionDB db;
-        public FormAjouterMvt()
+        private Form1 ancien;
+        public FormAjouterMvt(Form1 ancien)
         {
+            this.ancien = ancien;
             InitializeComponent();
             db = new ConnexionDB(); // Initialisation de l'objet ConnexionDB
             LoadStockData();
@@ -33,6 +35,7 @@ namespace AP2
                     Convert.ToString(cb_MvtDepot.SelectedValue)
                     ))
                 {
+                    ancien.LoadStockData();
                     MessageBox.Show("Mouvement ajouté avec succès !");
                 }
             }

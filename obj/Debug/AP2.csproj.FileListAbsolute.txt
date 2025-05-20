@@ -50,3 +50,6 @@ E:\2eme année\Mr Rinaldi\AP2\AP2\AP2\obj\Debug\AP2.FormAjouterFab.resources
 E:\2eme année\Mr Rinaldi\AP2\AP2\AP2\obj\Debug\AP2.csproj.Up2Date
 F:\2eme année\Mr Rinaldi\AP2\AP2\AP2\obj\Debug\AP2.FormAjouterDepot.resources
 F:\2eme année\Mr Rinaldi\AP2\AP2\AP2\obj\Debug\AP2.FormAjouterFab.resources
+F:\2eme année\Mr Rinaldi\AP2\AP2\AP2\obj\Debug\AP2.FormAjouterCat.resources
+F:\2eme année\Mr Rinaldi\AP2\AP2\AP2\obj\Debug\AP2.FormAjouterUni.resources
+F:\2eme année\Mr Rinaldi\AP2\AP2\AP2\obj\Debug\AP2.FormAjouterInv.resources

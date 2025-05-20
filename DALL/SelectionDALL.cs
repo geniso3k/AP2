@@ -129,24 +129,50 @@ namespace AP2.DALL
 
         public DataTable search( string choix, string param = null)
         {
-            string query = "SELECT * FROM ";
-            string lib;
+            string query = null;
+            string lib = null;
             if(choix == "fab")
             {
-                query += "fabricants";
+                query = " SELECT * FROM fabricants";
                 lib = "CONCAT(nomEnt,marque,refFab)";
             }
-            else
+            else if(choix == "dep")
             {
-                query += "dépôt";
+                query = " SELECT * FROM dépôt";
                 lib = "CONCAT(ville,nom,pays,idDepot,lattitude,longitude)";
             }
+            else if(choix == "uni")
+            {
+                query = " SELECT * FROM unité";
+                lib = "CONCAT(codeUni,libelle)";
 
-            
+            }
+            else if(choix == "cat")
+            {
+                query = " SELECT * FROM  [catégorie_d_articles]";
+                lib = "CONCAT(codeCat,libelle)";
+
+            }else if(choix == "mvt")
+            {
+                query += "SELECT id, a.libelle, m.dateHr, m.qte, CONCAT(d.nom, ', ', d.ville) as dépôt FROM mouvstock m " +
+                    " JOIN Articles a ON a.refArticles = m.refArticle" +
+                    " JOIN dépôt d ON d.idDepot = m.numDepot";
+
+                lib = "type = 'MVT' AND  CONCAT(a.libelle, dateHr, qte, d.nom)";
+            }
+            else if (choix == "inv")
+            {
+                query += "SELECT id, a.libelle, m.dateHr, m.qte, CONCAT(d.nom, ', ', d.ville) as dépôt FROM mouvstock m " +
+                    " JOIN Articles a ON a.refArticles = m.refArticle" +
+                    " JOIN dépôt d ON d.idDepot = m.numDepot";
+
+                lib = "type = 'INV' AND CONCAT(a.libelle, dateHr, qte, d.nom)";
+            }
+
+
             if (param != null)
             {
                 query += " WHERE "+lib+" LIKE @libelle;";
-                
 
                 SqlParameter[] checkParam = new SqlParameter[]
                         {
@@ -191,7 +217,7 @@ namespace AP2.DALL
 
                     string query = $"UPDATE {nomTable} SET {columnName} = @val WHERE {column} = @id";
 
-               
+                
 
                 SqlParameter[] checkParam = new SqlParameter[]
                             {
@@ -245,13 +271,23 @@ namespace AP2.DALL
                      table = "dépôt";
                     param = "idDepot = '"+id+"'";
                 }
-                else
+                else if(param == "ART")
                 {
                     table = "Articles";
                     param = "refArticles = '" + id + "'";
+                }else if(param == "CAT")
+                {
+                    table = "[catégorie_d_articles]";
+                    param = "codeCat = '"+ id +"'";
+                }else if(param == "UNI")
+                {
+                    table = "unité";
+                    param = "codeUni = '" + id + "'";
                 }
 
                 string query = "DELETE FROM " + table + " WHERE " + param;
+
+               
 
                 
 

@@ -44,7 +44,7 @@ namespace AP2
                               commande.Parameters.AddRange(parametres);
                             
                         }
-
+                        
                         connexion.Open();
 
                         using (SqlDataReader lecteur = commande.ExecuteReader())
@@ -86,6 +86,7 @@ namespace AP2
                     // Ouvrir la connexion et exécuter la requête
                     try
                     {
+                        
                         connection.Open();
                         int rowsAffected = command.ExecuteNonQuery();
                         return rowsAffected > 0;

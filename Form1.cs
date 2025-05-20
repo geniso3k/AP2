@@ -54,6 +54,12 @@ namespace AP2
                 dgv_allDep.CellValueChanged += dgv_allDep_CellValueChanged;
                 dgv_allDep.CellEndEdit += dgv_allDep_CellEndEdit;
 
+                dgvCat.CellValueChanged += dgvCat_CellValueChanged;
+                dgvCat.CellEndEdit += dgvCat_CellEndEdit;
+
+                dgv_Uni.CellValueChanged += dgv_Uni_CellValueChanged;
+                dgv_Uni.CellEndEdit += dgv_Uni_CellEndEdit;
+
                 //  attachement des handlers pour 2 DGV
 
                 supprimerToolStripMenuItem.Click += supprimerToolStripMenuItem_Click;
@@ -61,24 +67,30 @@ namespace AP2
                 dgv_allDep.MouseDown += dataGridView_MouseDown;
                 dgv_AllFab.MouseDown += dataGridView_MouseDown;
                 stockDgv.MouseDown += dataGridView_MouseDown;
+                dgvCat.MouseDown += dataGridView_MouseDown;
+                dgv_Uni.MouseDown += dataGridView_MouseDown;
 
                 btnAfficherStock_Click(null,null);
 
 
-
+                // Charger les unités
+                string queryUni = "SELECT * FROM unité";
+                DataTable resultUni = db.ExecuteSelect(queryUni);
+                dgv_Uni.DataSource = resultUni;
 
 
 
                 // Charger les catégories
-                string queryCategorie = "SELECT codeCat AS id, libelle FROM [catégorie_d_articles]";
+                string queryCategorie = "SELECT codeCat, Libelle FROM [catégorie_d_articles]";
                 DataTable resultCategories = db.ExecuteSelect(queryCategorie);
                 DataRow newRowCat = resultCategories.NewRow();
-                newRowCat["id"] = 0;  // Mettre un entier au lieu de "*"
+                dgvCat.DataSource = resultCategories.Copy();
+                newRowCat["codeCat"] = 0;  // Mettre un entier au lieu de "*"
                 newRowCat["libelle"] = "Toutes";
                 resultCategories.Rows.InsertAt(newRowCat, 0);
                 cb_cat.DataSource = resultCategories;
                 cb_cat.DisplayMember = "libelle";
-                cb_cat.ValueMember = "id";
+                cb_cat.ValueMember = "codeCat";
 
                 // Charger les fabricants
                 string queryFab = "SELECT refFab AS id, nomEnt FROM fabricants";
@@ -102,6 +114,13 @@ namespace AP2
                 cb_Dep.DisplayMember = "nom";
                 cb_Dep.ValueMember = "id";
 
+                string queryInv = "select id, a.libelle, dateHr as Date, qte as Quantité, CONCAT(d.nom, ', ', d.ville) as Dépôt\r\nFROM mouvstock m\r\nJOIN Articles a ON a.refArticles = m.refArticle\r\nJOIN dépôt d ON d.idDepot = m.numDepot\r\n WHERE TYPE='INV' ORDER BY dateHr desc";
+                DataTable resultInv = db.ExecuteSelect(queryInv);
+                dgv_Inv.DataSource = resultInv;
+
+                string queryMvt = "select id, a.libelle, dateHr as Date, qte as Quantité, CONCAT(d.nom, ', ', d.ville) as Dépôt\r\nFROM mouvstock m\r\nJOIN Articles a ON a.refArticles = m.refArticle\r\nJOIN dépôt d ON d.idDepot = m.numDepot\r\n WHERE TYPE='MVT' ORDER BY dateHr desc";
+                DataTable resultMvt = db.ExecuteSelect(queryMvt);
+                dgv_Mvt.DataSource = resultMvt;
 
                 SelectionDALL selectionDALL = new SelectionDALL();
                 DataTable dt = selectionDALL.search("dep");
@@ -240,7 +259,7 @@ namespace AP2
 
         private void btnMvt_Click(object sender, EventArgs e)
         {
-            Form formAjouterMvt = new FormAjouterMvt();
+            Form formAjouterMvt = new FormAjouterMvt(this);
             formAjouterMvt.Show();
 
         }
@@ -320,6 +339,43 @@ namespace AP2
 
         }
 
+        private void dgvCat_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            dgvCat.CommitEdit(DataGridViewDataErrorContexts.Commit);
+        }
+        private void dgvCat_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+
+            SelectionDALL sd = new SelectionDALL();
+            if (sd.ModifierDGV((DataGridView)sender, e.RowIndex, e.ColumnIndex, "catégorie_d_articles"))
+            {
+                MessageBox.Show("Modification effectuée !");
+            }
+            else
+            {
+                MessageBox.Show("Aucune modification effectuée !");
+            }
+
+        }
+        private void dgv_Uni_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            dgv_Uni.CommitEdit(DataGridViewDataErrorContexts.Commit);
+        }
+        private void dgv_Uni_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+
+            SelectionDALL sd = new SelectionDALL();
+            if (sd.ModifierDGV((DataGridView)sender, e.RowIndex, e.ColumnIndex, "unité"))
+            {
+                MessageBox.Show("Modification effectuée !");
+            }
+            else
+            {
+                MessageBox.Show("Aucune modification effectuée !");
+            }
+
+        }
+
         private void stockDgv_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
@@ -340,6 +396,50 @@ namespace AP2
 
         }
 
+        private void btn_addCat_Click(object sender, EventArgs e)
+        {
+            Form ajtCat = new FormAjouterCat(this);
+            ajtCat.Show();
+        }
 
+        private void btn_ajouterUni_Click(object sender, EventArgs e)
+        {
+            Form ajtCat = new FormAjouterUni(this);
+            ajtCat.Show();
+        }
+
+        private void txt_searchCat_TextChanged(object sender, EventArgs e)
+        {
+            SelectionDALL selectionDALL = new SelectionDALL();
+            DataTable dt = selectionDALL.search("cat", txt_searchCat.Text);
+            dgvCat.DataSource = dt;
+        }
+
+        private void txt_searchUni_TextChanged(object sender, EventArgs e)
+        {
+            SelectionDALL selectionDALL = new SelectionDALL();
+            DataTable dt = selectionDALL.search("uni", txt_searchUni.Text);
+            dgv_Uni.DataSource = dt;
+        }
+
+        private void txt_searchMvt_TextChanged(object sender, EventArgs e)
+        {
+            SelectionDALL selectionDALL = new SelectionDALL();
+            DataTable dt = selectionDALL.search("mvt", txt_searchMvt.Text);
+            dgv_Mvt.DataSource = dt;
+        }
+
+        private void txt_searchInv_TextChanged(object sender, EventArgs e)
+        {
+            SelectionDALL selectionDALL = new SelectionDALL();
+            DataTable dt = selectionDALL.search("inv", txt_searchInv.Text);
+            dgv_Inv.DataSource = dt;
+        }
+
+        private void btn_inv_Click(object sender, EventArgs e)
+        {
+            Form ajtInv = new FormAjouterInv(this);
+            ajtInv.Show();
+        }
     }
 }

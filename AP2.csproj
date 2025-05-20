@@ -81,6 +81,24 @@
     <Compile Include="FormAjouterArticle.Designer.cs">
       <DependentUpon>FormAjouterArticle.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormAjouterInv.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormAjouterInv.Designer.cs">
+      <DependentUpon>FormAjouterInv.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormAjouterUni.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormAjouterUni.Designer.cs">
+      <DependentUpon>FormAjouterUni.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormAjouterCat.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormAjouterCat.Designer.cs">
+      <DependentUpon>FormAjouterCat.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormAjouterDepot.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -112,6 +130,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormAjouterArticle.resx">
       <DependentUpon>FormAjouterArticle.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormAjouterInv.resx">
+      <DependentUpon>FormAjouterInv.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormAjouterUni.resx">
+      <DependentUpon>FormAjouterUni.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormAjouterCat.resx">
+      <DependentUpon>FormAjouterCat.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormAjouterDepot.resx">
       <DependentUpon>FormAjouterDepot.cs</DependentUpon>

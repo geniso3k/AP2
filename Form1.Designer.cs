@@ -38,7 +38,16 @@
             this.dgvStock = new System.Windows.Forms.DataGridView();
             this.btnAfficherStock = new System.Windows.Forms.Button();
             this.donnee_inv_tab = new System.Windows.Forms.TabPage();
+            this.dgv_Inv = new System.Windows.Forms.DataGridView();
+            this.cmSupp = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.supprimerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.btn_inv = new System.Windows.Forms.Button();
+            this.label10 = new System.Windows.Forms.Label();
+            this.txt_searchInv = new System.Windows.Forms.TextBox();
             this.donnee_mvm_tab = new System.Windows.Forms.TabPage();
+            this.txt_searchMvt = new System.Windows.Forms.TextBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.dgv_Mvt = new System.Windows.Forms.DataGridView();
             this.btnMvt = new System.Windows.Forms.Button();
             this.tabDonnee = new System.Windows.Forms.TabPage();
             this.tabControl3 = new System.Windows.Forms.TabControl();
@@ -59,8 +68,6 @@
             this.label6 = new System.Windows.Forms.Label();
             this.txt_searchFab = new System.Windows.Forms.TextBox();
             this.dgv_AllFab = new System.Windows.Forms.DataGridView();
-            this.cmSupp = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.supprimerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.btn_AjtDep = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
@@ -83,14 +90,17 @@
             this.tabControl2.SuspendLayout();
             this.donnee_nvxStock_tab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvStock)).BeginInit();
+            this.donnee_inv_tab.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv_Inv)).BeginInit();
+            this.cmSupp.SuspendLayout();
             this.donnee_mvm_tab.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv_Mvt)).BeginInit();
             this.tabDonnee.SuspendLayout();
             this.tabControl3.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.stockDgv)).BeginInit();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_AllFab)).BeginInit();
-            this.cmSupp.SuspendLayout();
             this.tabPage3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_allDep)).BeginInit();
             this.tabParam.SuspendLayout();
@@ -198,6 +208,10 @@
             // 
             // donnee_inv_tab
             // 
+            this.donnee_inv_tab.Controls.Add(this.dgv_Inv);
+            this.donnee_inv_tab.Controls.Add(this.btn_inv);
+            this.donnee_inv_tab.Controls.Add(this.label10);
+            this.donnee_inv_tab.Controls.Add(this.txt_searchInv);
             this.donnee_inv_tab.Location = new System.Drawing.Point(4, 22);
             this.donnee_inv_tab.Name = "donnee_inv_tab";
             this.donnee_inv_tab.Padding = new System.Windows.Forms.Padding(3);
@@ -206,8 +220,66 @@
             this.donnee_inv_tab.Text = "Inventaire";
             this.donnee_inv_tab.UseVisualStyleBackColor = true;
             // 
+            // dgv_Inv
+            // 
+            this.dgv_Inv.AllowUserToAddRows = false;
+            this.dgv_Inv.AllowUserToDeleteRows = false;
+            this.dgv_Inv.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgv_Inv.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            this.dgv_Inv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgv_Inv.ContextMenuStrip = this.cmSupp;
+            this.dgv_Inv.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.dgv_Inv.Location = new System.Drawing.Point(3, 92);
+            this.dgv_Inv.Name = "dgv_Inv";
+            this.dgv_Inv.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgv_Inv.Size = new System.Drawing.Size(592, 297);
+            this.dgv_Inv.TabIndex = 7;
+            // 
+            // cmSupp
+            // 
+            this.cmSupp.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.supprimerToolStripMenuItem});
+            this.cmSupp.Name = "cmSupp";
+            this.cmSupp.Size = new System.Drawing.Size(130, 26);
+            // 
+            // supprimerToolStripMenuItem
+            // 
+            this.supprimerToolStripMenuItem.Name = "supprimerToolStripMenuItem";
+            this.supprimerToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
+            this.supprimerToolStripMenuItem.Text = "Supprimer";
+            // 
+            // btn_inv
+            // 
+            this.btn_inv.Location = new System.Drawing.Point(389, 3);
+            this.btn_inv.Name = "btn_inv";
+            this.btn_inv.Size = new System.Drawing.Size(203, 77);
+            this.btn_inv.TabIndex = 3;
+            this.btn_inv.Text = "Faire l\'inventaire";
+            this.btn_inv.UseVisualStyleBackColor = true;
+            this.btn_inv.Click += new System.EventHandler(this.btn_inv_Click);
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(40, 20);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(127, 13);
+            this.label10.TabIndex = 2;
+            this.label10.Text = "Rechercher un inventaire";
+            // 
+            // txt_searchInv
+            // 
+            this.txt_searchInv.Location = new System.Drawing.Point(43, 36);
+            this.txt_searchInv.Name = "txt_searchInv";
+            this.txt_searchInv.Size = new System.Drawing.Size(100, 20);
+            this.txt_searchInv.TabIndex = 1;
+            this.txt_searchInv.TextChanged += new System.EventHandler(this.txt_searchInv_TextChanged);
+            // 
             // donnee_mvm_tab
             // 
+            this.donnee_mvm_tab.Controls.Add(this.txt_searchMvt);
+            this.donnee_mvm_tab.Controls.Add(this.label11);
+            this.donnee_mvm_tab.Controls.Add(this.dgv_Mvt);
             this.donnee_mvm_tab.Controls.Add(this.btnMvt);
             this.donnee_mvm_tab.Location = new System.Drawing.Point(4, 22);
             this.donnee_mvm_tab.Name = "donnee_mvm_tab";
@@ -217,6 +289,38 @@
             this.donnee_mvm_tab.Text = "Mouvements";
             this.donnee_mvm_tab.UseVisualStyleBackColor = true;
             // 
+            // txt_searchMvt
+            // 
+            this.txt_searchMvt.Location = new System.Drawing.Point(40, 43);
+            this.txt_searchMvt.Name = "txt_searchMvt";
+            this.txt_searchMvt.Size = new System.Drawing.Size(179, 20);
+            this.txt_searchMvt.TabIndex = 8;
+            this.txt_searchMvt.TextChanged += new System.EventHandler(this.txt_searchMvt_TextChanged);
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(37, 26);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(121, 13);
+            this.label11.TabIndex = 7;
+            this.label11.Text = "Rechercher mouvement";
+            // 
+            // dgv_Mvt
+            // 
+            this.dgv_Mvt.AllowUserToAddRows = false;
+            this.dgv_Mvt.AllowUserToDeleteRows = false;
+            this.dgv_Mvt.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgv_Mvt.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            this.dgv_Mvt.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgv_Mvt.ContextMenuStrip = this.cmSupp;
+            this.dgv_Mvt.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.dgv_Mvt.Location = new System.Drawing.Point(3, 92);
+            this.dgv_Mvt.Name = "dgv_Mvt";
+            this.dgv_Mvt.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgv_Mvt.Size = new System.Drawing.Size(592, 297);
+            this.dgv_Mvt.TabIndex = 6;
+            // 
             // btnMvt
             // 
             this.btnMvt.Location = new System.Drawing.Point(411, 26);
@@ -225,6 +329,7 @@
             this.btnMvt.TabIndex = 5;
             this.btnMvt.Text = "Ajouter un mouvement";
             this.btnMvt.UseVisualStyleBackColor = true;
+            this.btnMvt.Click += new System.EventHandler(this.btnMvt_Click);
             // 
             // tabDonnee
             // 
@@ -429,19 +534,6 @@
             this.dgv_AllFab.Size = new System.Drawing.Size(602, 312);
             this.dgv_AllFab.TabIndex = 0;
             // 
-            // cmSupp
-            // 
-            this.cmSupp.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.supprimerToolStripMenuItem});
-            this.cmSupp.Name = "cmSupp";
-            this.cmSupp.Size = new System.Drawing.Size(130, 26);
-            // 
-            // supprimerToolStripMenuItem
-            // 
-            this.supprimerToolStripMenuItem.Name = "supprimerToolStripMenuItem";
-            this.supprimerToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
-            this.supprimerToolStripMenuItem.Text = "Supprimer";
-            // 
             // tabPage3
             // 
             this.tabPage3.Controls.Add(this.btn_AjtDep);
@@ -537,6 +629,7 @@
             this.btn_addCat.TabIndex = 3;
             this.btn_addCat.Text = "Ajouter une catégorie";
             this.btn_addCat.UseVisualStyleBackColor = true;
+            this.btn_addCat.Click += new System.EventHandler(this.btn_addCat_Click);
             // 
             // label8
             // 
@@ -553,14 +646,20 @@
             this.txt_searchCat.Name = "txt_searchCat";
             this.txt_searchCat.Size = new System.Drawing.Size(268, 20);
             this.txt_searchCat.TabIndex = 1;
+            this.txt_searchCat.TextChanged += new System.EventHandler(this.txt_searchCat_TextChanged);
             // 
             // dgvCat
             // 
+            this.dgvCat.AllowUserToAddRows = false;
+            this.dgvCat.AllowUserToDeleteRows = false;
+            this.dgvCat.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvCat.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dgvCat.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvCat.ContextMenuStrip = this.cmSupp;
             this.dgvCat.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.dgvCat.Location = new System.Drawing.Point(3, 92);
             this.dgvCat.Name = "dgvCat";
+            this.dgvCat.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvCat.Size = new System.Drawing.Size(599, 297);
             this.dgvCat.TabIndex = 0;
             // 
@@ -586,6 +685,7 @@
             this.btn_ajouterUni.TabIndex = 7;
             this.btn_ajouterUni.Text = "Ajouter une unité";
             this.btn_ajouterUni.UseVisualStyleBackColor = true;
+            this.btn_ajouterUni.Click += new System.EventHandler(this.btn_ajouterUni_Click);
             // 
             // label9
             // 
@@ -602,14 +702,19 @@
             this.txt_searchUni.Name = "txt_searchUni";
             this.txt_searchUni.Size = new System.Drawing.Size(268, 20);
             this.txt_searchUni.TabIndex = 5;
+            this.txt_searchUni.TextChanged += new System.EventHandler(this.txt_searchUni_TextChanged);
             // 
             // dgv_Uni
             // 
+            this.dgv_Uni.AllowUserToAddRows = false;
+            this.dgv_Uni.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgv_Uni.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgv_Uni.ContextMenuStrip = this.cmSupp;
             this.dgv_Uni.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.dgv_Uni.Location = new System.Drawing.Point(3, 92);
+            this.dgv_Uni.MultiSelect = false;
             this.dgv_Uni.Name = "dgv_Uni";
+            this.dgv_Uni.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgv_Uni.Size = new System.Drawing.Size(599, 297);
             this.dgv_Uni.TabIndex = 4;
             // 
@@ -629,7 +734,13 @@
             this.donnee_nvxStock_tab.ResumeLayout(false);
             this.donnee_nvxStock_tab.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvStock)).EndInit();
+            this.donnee_inv_tab.ResumeLayout(false);
+            this.donnee_inv_tab.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv_Inv)).EndInit();
+            this.cmSupp.ResumeLayout(false);
             this.donnee_mvm_tab.ResumeLayout(false);
+            this.donnee_mvm_tab.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv_Mvt)).EndInit();
             this.tabDonnee.ResumeLayout(false);
             this.tabControl3.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
@@ -638,7 +749,6 @@
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_AllFab)).EndInit();
-            this.cmSupp.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_allDep)).EndInit();
@@ -705,6 +815,13 @@
         private System.Windows.Forms.TextBox txt_searchUni;
         private System.Windows.Forms.DataGridView dgv_Uni;
         private System.Windows.Forms.Button btnMvt;
+        private System.Windows.Forms.Button btn_inv;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.TextBox txt_searchInv;
+        private System.Windows.Forms.TextBox txt_searchMvt;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.DataGridView dgv_Mvt;
+        private System.Windows.Forms.DataGridView dgv_Inv;
     }
 }
 
