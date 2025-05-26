@@ -15,6 +15,7 @@ namespace AP2
     {
         private ConnexionDB db;
         private Form1 ancien;
+        private InsertionDALL idall = new InsertionDALL();
         public FormAjouterMvt(Form1 ancien)
         {
             this.ancien = ancien;
@@ -25,10 +26,10 @@ namespace AP2
 
         private void btnValiderMvt_Click(object sender, EventArgs e)
         {
-            SelectionDALL sd = new SelectionDALL();
+            
 
             if (txt_MvtQtt.Text != "0") {
-                if (sd.ajouterMvt(
+                if (this.idall.ajouterMvt(
                     Convert.ToString(cb_MvtArticle.SelectedValue),
                     date_Mvt.Value,
                     Convert.ToInt32(txt_MvtQtt.Text),

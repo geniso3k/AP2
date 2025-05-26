@@ -21,6 +21,7 @@ namespace AP2
         private string fab;
         private string uni;
         private string dep;
+        private InsertionDALL idall = new InsertionDALL();
 
         public FormModifierArticle( Form1 parent,string id = null, string lib = null, string cat = null, string fab = null, string uni = null, string dep = null)
         {
@@ -50,7 +51,7 @@ namespace AP2
         private void btn_del_Click(object sender, EventArgs e)
         {
             DialogResult dr = MessageBox.Show("Voulez vous vraiment supprimer l'article dont la référence est "+this.id+" ?", "Suppression", MessageBoxButtons.YesNo);
-            if (dr == DialogResult.Yes && this.sd.delete("articles", "refArticles", this.id))
+            if (dr == DialogResult.Yes && this.idall.delete("articles", "refArticles", this.id))
             {
                 MessageBox.Show("L'article a été supprimé avec succès.");
                 this.parentForm.LoadStockData();
@@ -130,7 +131,7 @@ namespace AP2
             string codeUni = cb_unite.SelectedValue?.ToString();
             string idDepot = cb_depot.SelectedValue?.ToString();
 
-            if (sd.editerArticle(this.id, libelle, codeCat, refFab, codeUni, idDepot))
+            if (this.idall.editerArticle(this.id, libelle, codeCat, refFab, codeUni, idDepot))
             {
                 MessageBox.Show("Article modifié avec succès.");
                 this.parentForm.LoadStockData();

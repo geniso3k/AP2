@@ -19,14 +19,15 @@ namespace AP2
 
         private ConnexionDB db; // Instance de la classe ConnexionDB
         private DataGridView dgvCible = null;
+
+        //Instance et initialisation des DALL
+        SelectionDALL sdall = new SelectionDALL();
+        InsertionDALL idall = new InsertionDALL();
         public Form1()
         {
             InitializeComponent();
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
             db = new ConnexionDB(); // Initialisation de l'objet ConnexionDB
-
-            
-
 
         }
 
@@ -122,10 +123,10 @@ namespace AP2
                 DataTable resultMvt = db.ExecuteSelect(queryMvt);
                 dgv_Mvt.DataSource = resultMvt;
 
-                SelectionDALL selectionDALL = new SelectionDALL();
-                DataTable dt = selectionDALL.search("dep");
+                
+                DataTable dt = this.sdall.search("dep");
                 dgv_allDep.DataSource = dt;
-                DataTable dt2 = selectionDALL.search("fab");
+                DataTable dt2 = this.sdall.search("fab");
                 dgv_AllFab.DataSource = dt2;
 
                 // Charger les articles au démarrage
@@ -156,10 +157,10 @@ namespace AP2
         {
             if (dgvCible != null && dgvCible.SelectedRows.Count > 0)
             {
-                SelectionDALL selectionDALL = new SelectionDALL();
+
                 string rowIndex = dgvCible.SelectedRows[0].Cells[0].Value.ToString();
                 string subst = rowIndex.Substring(0, 3); // avoir uniquement le mot FAB ou DEP
-                if (selectionDALL.deleteFabOuDep(rowIndex, subst))
+                if (this.idall.deleteFabOuDep(rowIndex, subst))
                 {
                     MessageBox.Show("Action réalisée avec succès");
                     this.LoadStockData();
@@ -172,7 +173,7 @@ namespace AP2
         {
             try
             {
-                SelectionDALL selectionDALL = new SelectionDALL();
+                
 
                 // Récupération des valeurs sélectionnées
                 string categorie = cb_cat.SelectedValue != null && cb_cat.SelectedValue.ToString() != "0" ? cb_cat.SelectedValue.ToString() : "*";
@@ -181,7 +182,7 @@ namespace AP2
                 bool triDesc = true;// chkTriDesc.Checked;
 
                 // Appel à la fonction de récupération des articles
-                DataTable dt = selectionDALL.Rafraichir(categorie, fabricant, libelle, triDesc);
+                DataTable dt = this.sdall.Rafraichir(categorie, fabricant, libelle, triDesc);
 
                 // Liaison des résultats au DataGridView
                 stockDgv.DataSource = dt;
@@ -250,8 +251,8 @@ namespace AP2
         private void btnAfficherStock_Click(object sender, EventArgs e)
         {
             DateTime dateCible = datePickerStock.Value;
-            SelectionDALL sd = new SelectionDALL();
-            DataTable dt = sd.afficherStockDate(dateCible);
+            
+            DataTable dt = this.sdall.afficherStockDate(dateCible);
             dgvStock.DataSource = dt;
 
 
@@ -267,16 +268,16 @@ namespace AP2
         private void txt_searchFab_TextChanged(object sender, EventArgs e)
         {
 
-            SelectionDALL selectionDALL = new SelectionDALL();
-            DataTable dt = selectionDALL.search("fab", txt_searchFab.Text);
+            
+            DataTable dt = this.sdall.search("fab", txt_searchFab.Text);
             dgv_AllFab.DataSource = dt;
 
         }
         private void txt_searchDep_TextChanged(object sender, EventArgs e)
         {
 
-            SelectionDALL selectionDALL = new SelectionDALL();
-            DataTable dt = selectionDALL.search("dep", txt_searchDep.Text);
+            
+            DataTable dt = this.sdall.search("dep", txt_searchDep.Text);
             dgv_allDep.DataSource = dt;
 
         }
@@ -307,8 +308,8 @@ namespace AP2
         private void dgv_AllFab_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
 
-            SelectionDALL sd = new SelectionDALL();
-            if(sd.ModifierDGV((DataGridView)sender, e.RowIndex, e.ColumnIndex, "Fabricants"))
+            
+            if(this.idall.ModifierDGV((DataGridView)sender, e.RowIndex, e.ColumnIndex, "Fabricants"))
             {
                 MessageBox.Show("Modification effectuée !");
             }
@@ -327,8 +328,8 @@ namespace AP2
         private void dgv_allDep_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
 
-            SelectionDALL sd = new SelectionDALL();
-            if (sd.ModifierDGV((DataGridView)sender, e.RowIndex, e.ColumnIndex, "Dépôt"))
+            
+            if (this.idall.ModifierDGV((DataGridView)sender, e.RowIndex, e.ColumnIndex, "Dépôt"))
             {
                 MessageBox.Show("Modification effectuée !");
             }
@@ -346,8 +347,8 @@ namespace AP2
         private void dgvCat_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
 
-            SelectionDALL sd = new SelectionDALL();
-            if (sd.ModifierDGV((DataGridView)sender, e.RowIndex, e.ColumnIndex, "catégorie_d_articles"))
+            
+            if (this.idall.ModifierDGV((DataGridView)sender, e.RowIndex, e.ColumnIndex, "catégorie_d_articles"))
             {
                 MessageBox.Show("Modification effectuée !");
             }
@@ -364,8 +365,8 @@ namespace AP2
         private void dgv_Uni_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
 
-            SelectionDALL sd = new SelectionDALL();
-            if (sd.ModifierDGV((DataGridView)sender, e.RowIndex, e.ColumnIndex, "unité"))
+            
+            if (this.idall.ModifierDGV((DataGridView)sender, e.RowIndex, e.ColumnIndex, "unité"))
             {
                 MessageBox.Show("Modification effectuée !");
             }
@@ -410,29 +411,29 @@ namespace AP2
 
         private void txt_searchCat_TextChanged(object sender, EventArgs e)
         {
-            SelectionDALL selectionDALL = new SelectionDALL();
-            DataTable dt = selectionDALL.search("cat", txt_searchCat.Text);
+            
+            DataTable dt = this.sdall.search("cat", txt_searchCat.Text);
             dgvCat.DataSource = dt;
         }
 
         private void txt_searchUni_TextChanged(object sender, EventArgs e)
         {
-            SelectionDALL selectionDALL = new SelectionDALL();
-            DataTable dt = selectionDALL.search("uni", txt_searchUni.Text);
+            
+            DataTable dt = this.sdall.search("uni", txt_searchUni.Text);
             dgv_Uni.DataSource = dt;
         }
 
         private void txt_searchMvt_TextChanged(object sender, EventArgs e)
         {
-            SelectionDALL selectionDALL = new SelectionDALL();
-            DataTable dt = selectionDALL.search("mvt", txt_searchMvt.Text);
+            
+            DataTable dt = this.sdall.search("mvt", txt_searchMvt.Text);
             dgv_Mvt.DataSource = dt;
         }
 
         private void txt_searchInv_TextChanged(object sender, EventArgs e)
         {
-            SelectionDALL selectionDALL = new SelectionDALL();
-            DataTable dt = selectionDALL.search("inv", txt_searchInv.Text);
+            
+            DataTable dt = this.sdall.search("inv", txt_searchInv.Text);
             dgv_Inv.DataSource = dt;
         }
 

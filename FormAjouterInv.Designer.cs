@@ -32,11 +32,11 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.cbArticle = new System.Windows.Forms.ComboBox();
+            this.dtpTime = new System.Windows.Forms.DateTimePicker();
+            this.txtQtt = new System.Windows.Forms.TextBox();
+            this.cbDep = new System.Windows.Forms.ComboBox();
+            this.btnAjouterInv = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -75,57 +75,58 @@
             this.label4.TabIndex = 3;
             this.label4.Text = "Dépôt souhaité";
             // 
-            // comboBox1
+            // cbArticle
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(13, 75);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(247, 21);
-            this.comboBox1.TabIndex = 4;
+            this.cbArticle.FormattingEnabled = true;
+            this.cbArticle.Location = new System.Drawing.Point(13, 75);
+            this.cbArticle.Name = "cbArticle";
+            this.cbArticle.Size = new System.Drawing.Size(247, 21);
+            this.cbArticle.TabIndex = 4;
             // 
-            // dateTimePicker1
+            // dtpTime
             // 
-            this.dateTimePicker1.CustomFormat = "dd/MM/yyyy HH:mm";
-            this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateTimePicker1.Location = new System.Drawing.Point(16, 125);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(247, 20);
-            this.dateTimePicker1.TabIndex = 5;
+            this.dtpTime.CustomFormat = "dd/MM/yyyy HH:mm";
+            this.dtpTime.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dtpTime.Location = new System.Drawing.Point(16, 125);
+            this.dtpTime.Name = "dtpTime";
+            this.dtpTime.Size = new System.Drawing.Size(247, 20);
+            this.dtpTime.TabIndex = 5;
             // 
-            // textBox1
+            // txtQtt
             // 
-            this.textBox1.Location = new System.Drawing.Point(13, 182);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(250, 20);
-            this.textBox1.TabIndex = 6;
+            this.txtQtt.Location = new System.Drawing.Point(13, 182);
+            this.txtQtt.Name = "txtQtt";
+            this.txtQtt.Size = new System.Drawing.Size(250, 20);
+            this.txtQtt.TabIndex = 6;
             // 
-            // comboBox2
+            // cbDep
             // 
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(13, 241);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(250, 21);
-            this.comboBox2.TabIndex = 7;
+            this.cbDep.FormattingEnabled = true;
+            this.cbDep.Location = new System.Drawing.Point(13, 241);
+            this.cbDep.Name = "cbDep";
+            this.cbDep.Size = new System.Drawing.Size(250, 21);
+            this.cbDep.TabIndex = 7;
             // 
-            // button1
+            // btnAjouterInv
             // 
-            this.button1.Location = new System.Drawing.Point(13, 293);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(250, 54);
-            this.button1.TabIndex = 8;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnAjouterInv.Location = new System.Drawing.Point(13, 293);
+            this.btnAjouterInv.Name = "btnAjouterInv";
+            this.btnAjouterInv.Size = new System.Drawing.Size(250, 54);
+            this.btnAjouterInv.TabIndex = 8;
+            this.btnAjouterInv.Text = "Ajouter l\'inventaire";
+            this.btnAjouterInv.UseVisualStyleBackColor = true;
+            this.btnAjouterInv.Click += new System.EventHandler(this.btnAjouterInv_Click);
             // 
             // FormAjouterInv
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(275, 369);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.comboBox2);
-            this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.dateTimePicker1);
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.btnAjouterInv);
+            this.Controls.Add(this.cbDep);
+            this.Controls.Add(this.txtQtt);
+            this.Controls.Add(this.dtpTime);
+            this.Controls.Add(this.cbArticle);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -144,10 +145,10 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.DateTimePicker dateTimePicker1;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.ComboBox comboBox2;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.ComboBox cbArticle;
+        private System.Windows.Forms.DateTimePicker dtpTime;
+        private System.Windows.Forms.TextBox txtQtt;
+        private System.Windows.Forms.ComboBox cbDep;
+        private System.Windows.Forms.Button btnAjouterInv;
     }
 }

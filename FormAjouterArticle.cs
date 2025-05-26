@@ -15,6 +15,7 @@ namespace AP2
     {
         private ConnexionDB db;
         private Form1 ancien;
+        private InsertionDALL idall = new InsertionDALL();
         public FormAjouterArticle(Form1 ancien)
         {
             InitializeComponent();
@@ -64,11 +65,11 @@ namespace AP2
 
         private void btn_Ajouter_Click(object sender, EventArgs e)
         {
-            SelectionDALL selectionDALL = new SelectionDALL();
+            
 
             if (!string.IsNullOrEmpty(txtLibelle.Text)){
                 bool reussite =
-                selectionDALL.ajouterProduit(
+                idall.ajouterProduit(
                     txt_RefArt.Text,
                     Convert.ToString(cb_Cat.SelectedValue),
                     Convert.ToString(cb_Fab.SelectedValue),
